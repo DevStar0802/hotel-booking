@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Models\RoomCapacity;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,10 @@ class RoomCapacityController extends Controller
      */
     public function store(Request $request)
     {
-      $request->validate(['name' => 'required']);
+      $validator = Validator::make($request->all(), ['name' => 'required']);
+      if ($validator->fails()) {
+          return response()->json($validator->messages(), 200);
+      }
       return RoomCapacity::create(['name'=> $request->name]);
     }
 
@@ -50,7 +54,10 @@ class RoomCapacityController extends Controller
      */
     public function update(Request $request, RoomCapacity $roomCapacity)
     {
-        $request->validate(['name' => 'required']);
+        $validator = Validator::make($request->all(), ['name' => 'required']);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
         $roomCapacity->name = $request->name;
         $roomCapacity->save();
         return ['response' => "room capacity saved succesfully"];

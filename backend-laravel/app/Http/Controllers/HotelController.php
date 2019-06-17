@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Hotel;
-use Storage;
-use App\Http\Requests\HotelUpdateRequest;
+use App\Helpers\Img;
+use Validator;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -16,20 +16,13 @@ class HotelController extends Controller
 
 //HotelUpdateRequest
     public function update(Request $request){
+      $validator = Validator::make($request->all(), ["image" => "image|mimes:jpeg,png,jpg,gif,svg|max:2048",]);
+      if ($validator->fails()) {
+          return response()->json($validator->messages(), 200);
+      }
       //right now we have just one hotel, but this could have a parameter for hotel.
       $hotel = Hotel::find(1);
-      //image handler
-      if($request->image){
-        //deleting if exist old.
-        if($hotel->image){
-          $image = str_replace('/storage', '/public', $hotel->image);
-          Storage::delete($image);
-        }
-        //upload image
-        $image = Storage::put('/public/images/hotel', $request->image);
-        $image = str_replace('/public', '/storage', $image);
-        $hotel->image = $image;
-      }
+      $hotel->image = Img::saveAndDelete($request->image, $hotel->image, '/hotel');
       //fill other fields.
       $hotel->fill($request->except('image'));
       $hotel->save();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,10 @@ class RoomTypeController extends Controller
      */
     public function store(Request $request)
     {
-      $request->validate(['name' => 'required']);
+      $validator = Validator::make($request->all(), ['name' => 'required']);
+      if ($validator->fails()) {
+          return response()->json($validator->messages(), 200);
+      }
       return RoomType::create(['name'=> $request->name]);
     }
 
@@ -49,7 +53,10 @@ class RoomTypeController extends Controller
      */
     public function update(Request $request, RoomType $roomType)
     {
-        $request->validate(['name' => 'required']);
+        $validator = Validator::make($request->all(), ['name' => 'required']);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
         $roomType->name = $request->name;
         $roomType->save();
         return ['response' => "room type saved succesfully"];

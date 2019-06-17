@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+use App\Helpers\Img;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        return Room::all();
     }
 
 
@@ -26,7 +28,15 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), Room::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        $room = new Room();
+        $room->fill($request->all());
+        $room->image = Img::save($request->image, '/rooms');
+        $room->save();
+        return $room;
     }
 
     /**
@@ -37,7 +47,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        //
+        return $room;
     }
 
 
@@ -50,7 +60,15 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        //
+        $validator = Validator::make($request->all(), Room::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        $room->image = Img::saveAndDelete($request->image, $room->image, '/rooms');
+        $room->fill($request->except('image'));
+        $room->save();
+
+        return ['response' => "room saved succesfully"];
     }
 
     /**
@@ -61,6 +79,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        $room->delete();
+        return ['response' => "room deleted succesfully"];
     }
 }
