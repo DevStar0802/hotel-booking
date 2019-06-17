@@ -14,7 +14,8 @@ class CreateRoomCapacitiesTable extends Migration
     public function up()
     {
         Schema::create('room_capacities', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('name', 150);
             $table->timestamps();
         });
     }

@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\Room;
 use Illuminate\Database\Seeder;
 
-class RoomCapacity extends Seeder
+class RoomSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class RoomCapacity extends Seeder
      */
     public function run()
     {
-        //
+        factory(Room::class, 20)->create();
     }
 }
