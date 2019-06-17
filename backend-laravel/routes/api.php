@@ -21,3 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/hotel', 'HotelController@show');
 Route::put('/hotel/update', 'HotelController@update');
 //!Hotel Manager
+
+Route::resource('/room-types', 'RoomTypeController', ['except' => ['create', 'edit']]);
+Route::resource('/room-capacities', 'RoomCapacityController', ['except' => ['create', 'edit']]);
+Route::resource('/rooms', 'RoomController', ['except' => ['create', 'edit']]);

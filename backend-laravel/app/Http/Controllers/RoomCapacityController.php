@@ -14,17 +14,7 @@ class RoomCapacityController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return RoomCapacity::all();
     }
 
     /**
@@ -35,7 +25,8 @@ class RoomCapacityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate(['name' => 'required']);
+      return RoomCapacity::create(['name'=> $request->name]);
     }
 
     /**
@@ -46,19 +37,9 @@ class RoomCapacityController extends Controller
      */
     public function show(RoomCapacity $roomCapacity)
     {
-        //
+        return $roomCapacity;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\RoomCapacity  $roomCapacity
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RoomCapacity $roomCapacity)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +50,10 @@ class RoomCapacityController extends Controller
      */
     public function update(Request $request, RoomCapacity $roomCapacity)
     {
-        //
+        $request->validate(['name' => 'required']);
+        $roomCapacity->name = $request->name;
+        $roomCapacity->save();
+        return ['response' => "room capacity saved succesfully"];
     }
 
     /**
@@ -80,6 +64,7 @@ class RoomCapacityController extends Controller
      */
     public function destroy(RoomCapacity $roomCapacity)
     {
-        //
+        $roomCapacity->delete();
+        return ['response' => "room capacity deleted succesfully"];
     }
 }

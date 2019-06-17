@@ -14,17 +14,7 @@ class RoomTypeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return RoomType::all();
     }
 
     /**
@@ -35,7 +25,8 @@ class RoomTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate(['name' => 'required']);
+      return RoomType::create(['name'=> $request->name]);
     }
 
     /**
@@ -46,18 +37,7 @@ class RoomTypeController extends Controller
      */
     public function show(RoomType $roomType)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\RoomType  $roomType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RoomType $roomType)
-    {
-        //
+        return $roomType;
     }
 
     /**
@@ -69,7 +49,10 @@ class RoomTypeController extends Controller
      */
     public function update(Request $request, RoomType $roomType)
     {
-        //
+        $request->validate(['name' => 'required']);
+        $roomType->name = $request->name;
+        $roomType->save();
+        return ['response' => "room type saved succesfully"];
     }
 
     /**
@@ -80,6 +63,7 @@ class RoomTypeController extends Controller
      */
     public function destroy(RoomType $roomType)
     {
-        //
+        $roomType->delete();
+        return ['response' => "room type deleted succesfully"];
     }
 }
