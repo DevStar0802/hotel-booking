@@ -25,3 +25,5 @@ Route::put('/hotel/update', 'HotelController@update');
 Route::resource('/room-types', 'RoomTypeController', ['except' => ['create', 'edit']]);
 Route::resource('/room-capacities', 'RoomCapacityController', ['except' => ['create', 'edit']]);
 Route::resource('/rooms', 'RoomController', ['except' => ['create', 'edit']]);
+
+Route::resource('/price', 'PriceController', ['except' => ['create', 'edit']]);

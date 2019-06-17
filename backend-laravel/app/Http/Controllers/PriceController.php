@@ -14,18 +14,9 @@ class PriceController extends Controller
      */
     public function index()
     {
-        //
+        return Price::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +26,13 @@ class PriceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), Price::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+
+        $price = Price::create($request->all());
+        return $price;
     }
 
     /**
@@ -46,19 +43,9 @@ class PriceController extends Controller
      */
     public function show(Price $price)
     {
-        //
+        return $price;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Price  $price
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Price $price)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +56,14 @@ class PriceController extends Controller
      */
     public function update(Request $request, Price $price)
     {
-        //
+        $validator = Validator::make($request->all(), Price::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+
+        $price->fill($request->all());
+        $price->save();
+        return ['response' => "price saved succesfully"];
     }
 
     /**
@@ -80,6 +74,7 @@ class PriceController extends Controller
      */
     public function destroy(Price $price)
     {
-        //
+        $price->delete();
+        return ['response' => "price deleted succesfully"];
     }
 }
