@@ -18,6 +18,8 @@ Vue.config.productionTip = false
 Vue.component('layout-menu', require('./components/layout/Menu.vue').default);
 Vue.component('layout-footer', require('./components/layout/Footer.vue').default);
 
+Vue.component('hotel-details', require('./components/admin/hotel/Hotel.vue').default);
+
 new Vue({
   router,
   store,
