@@ -18,6 +18,11 @@ export default new Router({
       name: 'hotel-details',
       component: Hotel
     },
+    {
+      path: '/admin/room-types',
+      name: 'room-types',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/roomtype/Index.vue')
+    },
     /*
     {
       path: '/about',

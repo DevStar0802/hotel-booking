@@ -59,7 +59,7 @@ class RoomTypeController extends Controller
         }
         $roomType->name = $request->name;
         $roomType->save();
-        return ['response' => "room type saved succesfully"];
+        return $roomType;
     }
 
     /**
@@ -70,7 +70,12 @@ class RoomTypeController extends Controller
      */
     public function destroy(RoomType $roomType)
     {
-        $roomType->delete();
+        try {
+          $roomType->delete();
+        } catch (\Exception $e) {
+          return ['exception' => $e->getMessage()];
+        }
+
         return ['response' => "room type deleted succesfully"];
     }
 }
