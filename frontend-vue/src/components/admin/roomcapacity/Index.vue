@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-8">
-        <h2>Room Type Manager</h2>
+        <h2>Room Capacity Manager</h2>
         <div class="row my-2">
           <div class="col-sm-6">
               <input type="text" v-model="create_input" class="form-control">
@@ -21,7 +21,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="type in room_types" :key="type.id">
+              <tr v-for="type in room_capacity" :key="type.id">
                 <td>{{type.id}}</td>
                 <td>
                   <span v-if="edit_item != type.id">{{type.name}}</span>
@@ -54,10 +54,10 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['fetchTypes', 'addType', 'deleteType', 'updateType']),
+    ...mapActions(['fetchCapacities', 'addCapacity', 'deleteCapacity', 'updateCapacity']),
     createItem(){
       if(this.create_input) {
-        this.addType({name:this.create_input});
+        this.addCapacity({name:this.create_input});
         this.create_input = '';
         this.$swal.fire(
           'Good job!',
@@ -77,7 +77,7 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          this.deleteType(id);
+          this.deleteCapacity(id);
         }
       })
     },
@@ -91,7 +91,7 @@ export default {
     },
     saveEdit(item){
       if(this.edit_input) {
-        this.updateType({id:item.id,name:this.edit_input});
+        this.updateCapacity({id:item.id,name:this.edit_input});
         this.$swal.fire(
           'Good job!',
           'Item updated!',
@@ -101,9 +101,9 @@ export default {
       }
     }
   },
-  computed: mapGetters(['room_types']),
+  computed: mapGetters(['room_capacity']),
   created(){
-    this.fetchTypes();
+    this.fetchCapacities();
   }
 }
 </script>

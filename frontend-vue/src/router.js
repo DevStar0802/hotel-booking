@@ -23,6 +23,11 @@ export default new Router({
       name: 'room-types',
       component: () => import(/* webpackChunkName: "about" */ './components/admin/roomtype/Index.vue')
     },
+    {
+      path: '/admin/room-capacities',
+      name: 'room-capacities',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/roomcapacity/Index.vue')
+    },
     /*
     {
       path: '/about',

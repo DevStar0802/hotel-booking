@@ -60,7 +60,7 @@ class RoomCapacityController extends Controller
         }
         $roomCapacity->name = $request->name;
         $roomCapacity->save();
-        return ['response' => "room capacity saved succesfully"];
+        return $roomCapacity;
     }
 
     /**
@@ -71,7 +71,12 @@ class RoomCapacityController extends Controller
      */
     public function destroy(RoomCapacity $roomCapacity)
     {
-        $roomCapacity->delete();
-        return ['response' => "room capacity deleted succesfully"];
+        try {
+          $roomCapacity->delete();
+        } catch (\Exception $e) {
+          return ['exception' => $e->getMessage()];
+        }
+
+      return ['response' => "room type deleted succesfully"];
     }
 }
