@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 
@@ -12,20 +13,11 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return Booking::filtered($request->all())->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +27,11 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), Booking::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        return Booking::create($request->all());
     }
 
     /**
@@ -46,19 +42,9 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        //
+        return $booking;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Booking $booking)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +55,13 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        //
+        $validator = Validator::make($request->all(), Booking::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        $booking->fill($request->all());
+        $booking->save();
+        return ['response' => "booking saved succesfully"];
     }
 
     /**
@@ -80,6 +72,7 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        $booking->delete();
+        return ['response' => "booking deleted succesfully"];
     }
 }

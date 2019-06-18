@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -14,18 +15,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return Customer::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +27,11 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), Customer::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        return Customer::create($request->all());
     }
 
     /**
@@ -46,19 +42,9 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        $customer;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +55,13 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $validator = Validator::make($request->all(), Customer::VALIDATOR_OPTIONS);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        $customer->fill($request->all());
+        $customer->save();
+        return ['response' => "customer saved succesfully"];
     }
 
     /**
@@ -80,6 +72,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return ['response' => "customer deleted succesfully"];
     }
 }
