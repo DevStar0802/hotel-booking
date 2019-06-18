@@ -13,6 +13,8 @@
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
+    "sass": "^1.21.0",
+    "sass-loader": "^7.1.0",
     "sweetalert2": "^8.12.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
