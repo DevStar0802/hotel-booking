@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import boiler from './modules/boiler';
+import hotel from './modules/hotel';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    //divided by ","
-    boiler
+    hotel
   }
 })
