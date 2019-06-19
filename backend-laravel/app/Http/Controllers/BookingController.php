@@ -29,7 +29,7 @@ class BookingController extends Controller
     {
         $validator = Validator::make($request->all(), Booking::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
         return Booking::create($request->all());
     }
@@ -57,11 +57,11 @@ class BookingController extends Controller
     {
         $validator = Validator::make($request->all(), Booking::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
         $booking->fill($request->all());
         $booking->save();
-        return ['response' => "booking saved succesfully"];
+        return $booking;
     }
 
     /**
@@ -72,7 +72,11 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        $booking->delete();
+        try {
+          $booking->delete();
+        } catch (\Exception $e) {
+          return ['exception' => $e->getMessage()];
+        }
         return ['response' => "booking deleted succesfully"];
     }
 }

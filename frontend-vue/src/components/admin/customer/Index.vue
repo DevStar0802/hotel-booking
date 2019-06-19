@@ -2,10 +2,10 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-8">
-        <h2>Price List Manager</h2>
+        <h2>Customer Manager</h2>
         <div class="row my-2">
           <div class="col-sm-6">
-              <router-link :to="{name: 'prices-create'}" class="btn btn-success mx-2">Create</router-link>
+              <router-link :to="{name: 'customers-create'}" class="btn btn-success mx-2">Create</router-link>
           </div>
         </div>
         <div class="row">
@@ -13,19 +13,20 @@
             <thead>
               <tr>
                 <td>#</td>
-                <td>Name</td>
-                <td>Price</td>
+                <td>First Name</td>
+                <td>Last Name</td>
                 <td>Actions</td>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="price in prices" :key="price.id">
-                <td>{{price.id}}</td>
-                <td>{{price.name}}</td>
-                <td>${{new Intl.NumberFormat("en-US").format(price.price)}}</td>
+              <tr v-for="customer in customers" :key="customer.id">
+                <td>{{customer.id}}</td>
+                <td>{{customer.first_name}}</td>
+                <td>{{customer.last_name}}</td>
+
                 <td>
-                  <router-link :to="{name: 'prices-edit', params:{id:price.id}}" class="btn btn-info mx-2">Edit</router-link>
-                  <button type="button" @click="removeItem(price.id)" class="btn btn-danger mx-2">Delete</button>
+                  <router-link :to="{name: 'customers-edit', params:{id:customer.id}}" class="btn btn-info mx-2">Edit</router-link>
+                  <button type="button" @click="removeItem(customer.id)" class="btn btn-danger mx-2">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -45,7 +46,7 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['fetchPrices', 'deletePrice']),
+    ...mapActions(['fetchCustomers', 'deleteCustomer']),
     removeItem(id){
       this.$swal.fire({
         title: 'Are you sure?',
@@ -57,17 +58,14 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          this.deletePrice(id);
+          this.deleteCustomer(id);
         }
       })
     },
   },
-  computed: mapGetters(['prices']),
+  computed: mapGetters(['customers']),
   created(){
-    this.fetchPrices();
+    this.fetchCustomers();
   }
 }
 </script>
-
-<style lang="css" scoped>
-</style>

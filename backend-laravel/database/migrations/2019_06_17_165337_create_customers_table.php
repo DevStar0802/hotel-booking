@@ -28,6 +28,10 @@ class CreateCustomersTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
+        Schema::table('users', function($table) {
+              $table->unsignedBigInteger('customer_id')->nullable();
+             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
+         });
     }
 
     /**

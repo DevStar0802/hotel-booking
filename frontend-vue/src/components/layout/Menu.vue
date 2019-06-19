@@ -19,6 +19,8 @@
           <router-link to="/admin/room-types" class="dropdown-item">Room Type Manager</router-link>
           <router-link to="/admin/room-capacities" class="dropdown-item">Room Capacity Manager</router-link>
           <div class="dropdown-divider"></div>
+          <router-link to="/admin/booking" class="dropdown-item">Booking Manager</router-link>
+          <router-link to="/admin/customers" class="dropdown-item">Customer Manager</router-link>
           <router-link to="/admin/prices" class="dropdown-item">Price List Manager</router-link>
           <div class="dropdown-divider"></div>
           <router-link to="/admin/hotel-details" class="dropdown-item">Hotel Details</router-link>

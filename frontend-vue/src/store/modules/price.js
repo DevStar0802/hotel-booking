@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as helpers from '@/helpers.js'
 import Swal from 'sweetalert2';
 
 const state = {
@@ -26,8 +27,14 @@ const actions = {
           price['_method'] = 'put';
           var route = '/api/prices/'+price.id.toString();
       } else var route = '/api/prices';
+      if(typeof price.start_date !== 'undefined' && typeof price.end_date !== 'undefined'){
+        price.start_date = helpers.formatDate(price.start_date);
+        price.end_date = helpers.formatDate(price.end_date);
+      }
+
+
       const response = await axios.post(process.env.VUE_APP_BE+route, price);
-      console.log(response.data);
+      //console.log(response.data);
       if(response.data.errors){
         commit('setErrors', response.data.errors);
         throw new Error("some errors in form");

@@ -58,6 +58,31 @@ export default new Router({
       name: 'prices-edit',
       component: () => import(/* webpackChunkName: "about" */ './components/admin/price/Create.vue')
     },
+    {
+      path: '/admin/booking',
+      name: 'booking',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/booking/Index.vue')
+    },
+    {
+      path: '/admin/booking/edit/:id',
+      name: 'booking-edit',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/booking/Create.vue')
+    },
+    {
+      path: '/admin/customers',
+      name: 'customers',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/customer/Index.vue')
+    },
+    {
+      path: '/admin/customers/create',
+      name: 'customers-create',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/customer/Create.vue')
+    },
+    {
+      path: '/admin/customers/edit/:id',
+      name: 'customers-edit',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/customer/Create.vue')
+    },
     /*
     {
       path: '/about',

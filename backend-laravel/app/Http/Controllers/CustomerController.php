@@ -29,7 +29,7 @@ class CustomerController extends Controller
     {
         $validator = Validator::make($request->all(), Customer::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
         return Customer::create($request->all());
     }
@@ -42,7 +42,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        $customer;
+        return $customer;
     }
 
 
@@ -57,11 +57,11 @@ class CustomerController extends Controller
     {
         $validator = Validator::make($request->all(), Customer::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
         $customer->fill($request->all());
         $customer->save();
-        return ['response' => "customer saved succesfully"];
+        return $customer;
     }
 
     /**
@@ -72,7 +72,11 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $customer->delete();
+        try {
+          $customer->delete();
+        } catch (\Exception $e) {
+          return ['exception' => $e->getMessage()];
+        }
         return ['response' => "customer deleted succesfully"];
     }
 }

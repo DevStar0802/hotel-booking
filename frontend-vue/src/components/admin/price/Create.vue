@@ -43,12 +43,12 @@
           <div class="row" v-if="dinamic_price">
             <div class="col-sm-12 col-md-6 form-group" v-if="typeof price.start_date !== 'undefined'">
               <label>Start Date</label>
-              <datetime v-model="price.start_date"></datetime>
+              <datepicker v-model="price.start_date" :use-utc="true"></datepicker>
               <span class="small text-danger" v-if="errors.start_date" v-for="error in errors.start_date" >{{error}}</span>
             </div>
             <div class="col-sm-12 col-md-6 form-group" v-if="typeof price.end_date !== 'undefined'">
               <label>End Date</label>
-              <datetime v-model="price.end_date"></datetime>
+              <datepicker v-model="price.end_date" :use-utc="true"></datepicker>
               <span class="small text-danger" v-if="errors.end_date" v-for="error in errors.end_date" >{{error}}</span>
             </div>
           </div>
@@ -62,8 +62,7 @@
 </template>
 
 <script>
-import { Datetime } from 'vue-datetime';
-import { DateTime } from "luxon";
+import Datepicker from 'vuejs-datepicker';
 import {mapGetters,mapActions, mapMutations} from 'vuex';
 export default {
   data(){
@@ -80,10 +79,7 @@ export default {
     ...mapMutations(['cleanPrice']),
     onSubmit(e){
       e.preventDefault();
-      if(this.dinamic_price){
-        this.price.start_date = this.price.start_date.replace('T00:00:00.000Z', '');
-        this.price.end_date = this.price.end_date.replace('T00:00:00.000Z', '');
-      } else {
+      if(!this.dinamic_price){
         delete this.price.start_date;
         delete this.price.end_date;
       }
@@ -119,7 +115,7 @@ export default {
     });
   },
   components: {
-    datetime: Datetime
+    datepicker: Datepicker
   },
   beforeDestroy(){
     this.dinamic_price=false;
