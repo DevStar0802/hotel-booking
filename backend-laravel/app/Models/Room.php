@@ -13,6 +13,6 @@ class Room extends Model
       'name' => 'required',
       'room_type_id' => 'required|integer|min:1',
       'room_capacity_id' => 'required|integer|min:1',
-      "image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
+      "image" => "image|mimes:jpeg,png,jpg,gif,svg|max:2048"
     ];
 }

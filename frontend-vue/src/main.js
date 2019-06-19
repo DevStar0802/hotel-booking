@@ -17,6 +17,7 @@ Vue.config.productionTip = false
 //template
 Vue.component('layout-menu', require('./components/layout/Menu.vue').default);
 Vue.component('layout-footer', require('./components/layout/Footer.vue').default);
+Vue.component('select-api', require('./components/layout/Select.vue').default);
 
 Vue.component('hotel-details', require('./components/admin/hotel/Hotel.vue').default);
 

@@ -28,6 +28,21 @@ export default new Router({
       name: 'room-capacities',
       component: () => import(/* webpackChunkName: "about" */ './components/admin/roomcapacity/Index.vue')
     },
+    {
+      path: '/admin/rooms',
+      name: 'rooms',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/room/Index.vue')
+    },
+    {
+      path: '/admin/rooms/create',
+      name: 'rooms-create',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/room/Create.vue')
+    },
+    {
+      path: '/admin/rooms/edit/:id',
+      name: 'rooms-edit',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/room/Create.vue')
+    },
     /*
     {
       path: '/about',

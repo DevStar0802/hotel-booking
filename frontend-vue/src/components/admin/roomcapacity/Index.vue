@@ -30,7 +30,7 @@
                 <td>
                   <button type="button" @click="saveEdit(type)" name="button" class="btn btn-success mx-2" v-if="edit_item == type.id" >Save</button>
                   <button type="button" @click="cancelEdit" name="button" class="btn btn-danger mx-2" v-if="edit_item == type.id">Cancel</button>
-                  <button type="button" class="btn btn-info mx-2" @click="editItem(type)" v-if="edit_item != type.id">Update</button>
+                  <button type="button" class="btn btn-info mx-2" @click="editItem(type)" v-if="edit_item != type.id">Edit</button>
                   <button type="button" @click="removeItem(type.id)" class="btn btn-danger mx-2" :disabled="edit_item==type.id">Delete</button>
                 </td>
               </tr>

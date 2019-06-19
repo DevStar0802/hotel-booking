@@ -15,8 +15,10 @@
           Admin
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <router-link to="/admin/rooms" class="dropdown-item">Room Manager</router-link>
           <router-link to="/admin/room-types" class="dropdown-item">Room Type Manager</router-link>
           <router-link to="/admin/room-capacities" class="dropdown-item">Room Capacity Manager</router-link>
+          <div class="dropdown-divider"></div>
           <div class="dropdown-divider"></div>
           <router-link to="/admin/hotel-details" class="dropdown-item">Hotel Details</router-link>
         </div>

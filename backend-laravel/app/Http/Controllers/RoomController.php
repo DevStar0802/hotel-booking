@@ -62,13 +62,16 @@ class RoomController extends Controller
     {
         $validator = Validator::make($request->all(), Room::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
-        $room->image = Img::saveAndDelete($request->image, $room->image, '/rooms');
         $room->fill($request->except('image'));
+        if($room->image!=$request->image){
+          $image = Img::saveAndDelete($request->image, $room->image, '/rooms');
+          if(!empty($image)) $room->image = $image;
+        }
         $room->save();
 
-        return ['response' => "room saved succesfully"];
+        return $room;
     }
 
     /**
