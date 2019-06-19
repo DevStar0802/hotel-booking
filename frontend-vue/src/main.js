@@ -22,6 +22,9 @@ Vue.component('select-api', require('./components/layout/Select.vue').default);
 
 Vue.component('hotel-details', require('./components/admin/hotel/Hotel.vue').default);
 
+Vue.component('booking-form', require('./components/web/BookingForm.vue').default);
+Vue.component('booking-details', require('./components/web/BookingDetails.vue').default);
+
 new Vue({
   router,
   store,

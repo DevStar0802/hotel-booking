@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      Home
+      <booking-form />
     </div>
   </div>
 </template>

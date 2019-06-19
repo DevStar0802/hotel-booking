@@ -5,11 +5,13 @@ import Swal from 'sweetalert2';
 const state = {
   s_bookings:[],
   s_booking : '',
+  s_booking_form:{}
 };
 
 const getters =  {
   bookings: state=>state.s_bookings,
   booking: state=>state.s_booking,
+  bookingForm:state=>state.s_booking_form
 };
 
 const actions = {
@@ -80,6 +82,7 @@ const actions = {
 const mutations = {
   setBookings:(state,bookings)=>state.s_bookings = bookings,
   setBooking:(state,booking)=>state.s_booking = booking,
+  setBookingForm:(state,bookingForm)=> state.s_booking_form = bookingForm,
   deleteBooking: (state, id) => state.s_bookings = state.s_bookings.filter(item=> item.id !== id),
 };
 

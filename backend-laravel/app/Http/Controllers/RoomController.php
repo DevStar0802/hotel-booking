@@ -14,9 +14,9 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Room::all();
+        return Room::filtered($request)->with('capacity')->with('type')->get();
     }
 
 

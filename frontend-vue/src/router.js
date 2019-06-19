@@ -83,6 +83,16 @@ export default new Router({
       name: 'customers-edit',
       component: () => import(/* webpackChunkName: "about" */ './components/admin/customer/Create.vue')
     },
+    {
+      path: '/web/room-list',
+      name: 'room-list',
+      component: () => import(/* webpackChunkName: "about" */ './components/web/RoomList.vue')
+    },
+    {
+      path: '/web/reservation-page',
+      name: 'reservation-page',
+      component: () => import(/* webpackChunkName: "about" */ './components/web/ReservationPage.vue')
+    },
     /*
     {
       path: '/about',

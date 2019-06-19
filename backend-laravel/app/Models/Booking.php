@@ -45,12 +45,12 @@ class Booking extends Model
     }
     public function scopeCustomerId($query, $scope){
       if (!empty($scope)) {
-        $query->where('customer_id', $estatus);
+        $query->where('customer_id', $scope);
       }
     }
     public function scopeRoomId($query, $scope){
       if (!empty($scope)) {
-        $query->where('room_id', $prioridad);
+        $query->where('room_id', $scope);
       }
     }
 
