@@ -21,7 +21,7 @@ class Price extends Model
       'price' => 'required|numeric',
       'room_type_id' => 'required|integer|min:1',
       'room_capacity_id' => 'required|integer|min:1',
-      'day' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,all',
+      'day' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday,all',
       'start_date' => 'date',
       'end_date' => 'date'
     ];

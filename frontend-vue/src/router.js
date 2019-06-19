@@ -43,6 +43,21 @@ export default new Router({
       name: 'rooms-edit',
       component: () => import(/* webpackChunkName: "about" */ './components/admin/room/Create.vue')
     },
+    {
+      path: '/admin/prices',
+      name: 'prices',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/price/Index.vue')
+    },
+    {
+      path: '/admin/prices/create',
+      name: 'prices-create',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/price/Create.vue')
+    },
+    {
+      path: '/admin/prices/edit/:id',
+      name: 'prices-edit',
+      component: () => import(/* webpackChunkName: "about" */ './components/admin/price/Create.vue')
+    },
     /*
     {
       path: '/about',

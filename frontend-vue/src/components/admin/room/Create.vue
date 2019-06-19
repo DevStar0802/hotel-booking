@@ -11,11 +11,16 @@
             <div class="col-sm-12 col-md-6 form-group">
               <label>Name</label>
               <input type="text" class="form-control" v-model="room.name">
+              <span class="small text-danger" v-if="errors.name" v-for="error in errors.name" >{{error}}</span>
             </div>
           </div>
           <div class="row">
-            <select-api event-send="roomTypeChange" :val="parseInt(room.room_type_id)" label="Room Type" route="/api/room-types"/>
-            <select-api event-send="roomCapacityChange" :val="parseInt(room.room_capacity_id)" label="Room Capacity" route="/api/room-capacities"/>
+            <select-api event-send="roomTypeChange" :val="parseInt(room.room_type_id)" label="Room Type" route="/api/room-types">
+              <span class="small text-danger" v-if="errors.room_type_id" v-for="error in errors.room_type_id" >{{error}}</span>
+            </select-api>
+            <select-api event-send="roomCapacityChange" :val="parseInt(room.room_capacity_id)" label="Room Capacity" route="/api/room-capacities">
+              <span class="small text-danger" v-if="errors.room_capacity_id" v-for="error in errors.room_capacity_id" >{{error}}</span>
+            </select-api>
           </div>
           <hr>
           <div class="row">
@@ -70,7 +75,7 @@ export default {
         this.room.image = this.$refs.image_m.files[0];
       }
       this.AddOrUpdateRoom(this.room).then(res => {
-        if(!this.id) this.$router.push({ name: "rooms"});
+        if(!this.id && res!='error') this.$router.push({ name: "rooms"});
       });
     }
   },

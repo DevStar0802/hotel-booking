@@ -44,7 +44,7 @@ const actions = {
       commit('setRoom', response.data);
       Swal.fire(
         'Good job!',
-        'Hotel updated!',
+        'Room updated!',
         'success'
       );
     } catch (e) {
@@ -53,7 +53,7 @@ const actions = {
         e.message,
         'error'
       );
-
+      return "error";
     }
   },
   async deleteRoom({commit}, id){

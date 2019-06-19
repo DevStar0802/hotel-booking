@@ -26,7 +26,7 @@ Route::resource('/room-types', 'RoomTypeController', ['except' => ['create', 'ed
 Route::resource('/room-capacities', 'RoomCapacityController', ['except' => ['create', 'edit']]);
 Route::resource('/rooms', 'RoomController', ['except' => ['create', 'edit']]);
 
-Route::resource('/price', 'PriceController', ['except' => ['create', 'edit']]);
+Route::resource('/prices', 'PriceController', ['except' => ['create', 'edit']]);
 
 Route::resource('/customers', 'CustomerController', ['except' => ['create', 'edit']]);
 Route::resource('/bookings', 'BookingController', ['except' => ['create', 'edit']]);

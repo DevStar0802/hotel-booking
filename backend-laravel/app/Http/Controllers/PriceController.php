@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Models\Price;
 use Illuminate\Http\Request;
 
@@ -26,12 +27,14 @@ class PriceController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), Price::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
-
-        $price = Price::create($request->all());
+        $price = new Price();
+        $price->fill($request->all());
+        $price->save();
         return $price;
     }
 
@@ -58,12 +61,12 @@ class PriceController extends Controller
     {
         $validator = Validator::make($request->all(), Price::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
 
         $price->fill($request->all());
         $price->save();
-        return ['response' => "price saved succesfully"];
+        return $price;
     }
 
     /**

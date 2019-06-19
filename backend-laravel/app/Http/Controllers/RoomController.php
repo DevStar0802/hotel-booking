@@ -30,7 +30,7 @@ class RoomController extends Controller
     {
         $validator = Validator::make($request->all(), Room::VALIDATOR_OPTIONS);
         if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
+            return response()->json(["errors" => $validator->messages()], 200);
         }
         $room = new Room();
         $room->fill($request->all());

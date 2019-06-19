@@ -10,6 +10,7 @@ window.$ = $
 ////sweetalert2
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import 'vue-datetime/dist/vue-datetime.css';
 Vue.prototype.$swal = Swal;
 
 Vue.config.productionTip = false

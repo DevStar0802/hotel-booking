@@ -4,6 +4,7 @@
     <select class="form-control" id="exampleFormControlSelect1" v-model="bindProp" @change="emitChange">
       <option v-for="item in items" :key="item.id" :value="item.id">{{item.name}}</option>
     </select>
+    <slot/>
   </div>
 </template>
 
