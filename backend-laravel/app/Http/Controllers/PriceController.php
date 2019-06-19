@@ -34,6 +34,11 @@ class PriceController extends Controller
         }
         $price = new Price();
         $price->fill($request->all());
+
+        if(empty($request->start_date) || empty($request->end_date)){
+          $price->start_date = null;
+          $price->end_date = null;
+        }
         $price->save();
         return $price;
     }
@@ -65,6 +70,12 @@ class PriceController extends Controller
         }
 
         $price->fill($request->all());
+
+        if(empty($request->start_date) || empty($request->end_date)){
+          $price->start_date = null;
+          $price->end_date = null;
+        }
+
         $price->save();
         return $price;
     }

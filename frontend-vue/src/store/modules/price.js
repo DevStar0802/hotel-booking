@@ -27,7 +27,7 @@ const actions = {
           var route = '/api/prices/'+price.id.toString();
       } else var route = '/api/prices';
       const response = await axios.post(process.env.VUE_APP_BE+route, price);
-
+      console.log(response.data);
       if(response.data.errors){
         commit('setErrors', response.data.errors);
         throw new Error("some errors in form");
