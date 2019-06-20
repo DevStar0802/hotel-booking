@@ -24,11 +24,15 @@ class AuthController extends Controller
       $validator = Validator::make($request->all(), [
         //'name' => 'required|string',
         'email' => 'required|string|email|unique:users',
-        'password' => 'required|string|confirmed'
+        'password' => 'required|string|confirmed',
+        //'token' => 'required'
       ]);
       if ($validator->fails()) {
           return response()->json(["errors" => $validator->messages()], 200);
       }
+
+      //if(!Recaptcha::validate($request->token)) return response()->json(["errors" => ["recaptcha" => "error con recaptcha"]], 200);
+
       try {
         $user = new User([
             'name' => "New User",
@@ -59,11 +63,15 @@ class AuthController extends Controller
       $validator = Validator::make($request->all(), [
         //'name' => 'required|string',
         'email' => 'required|string|email',
-        'password' => 'required|string'
+        'password' => 'required|string',
+        //'token' => 'required'
       ]);
       if ($validator->fails()) {
           return response()->json(["errors" => $validator->messages()], 200);
       }
+      //validate recaptcha
+      //if(!Recaptcha::validate($request->token)) return response()->json(["errors" => ["recaptcha" => "error con recaptcha"]], 200);
+
       try {
         $credentials = request(['email', 'password']);
 
@@ -120,4 +128,5 @@ class AuthController extends Controller
   {
       return response()->json($request->user());
   }
+
 }

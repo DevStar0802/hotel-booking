@@ -17,7 +17,13 @@
             <input id="password-confirm" type="password"  v-model="password_confirmation" name="password_confirmation" required="required" autocomplete="new-password" class="form-control">
           </div>
           <div class="col-sm-12">
-            <button type="submit" class="btn btn-success" name="button">Submit</button>
+            <div class="g-recaptcha"
+                  data-sitekey="6LcxyKkUAAAAAH67c2dmQDkHsE35tI-jeWWfcOJG"
+                  data-callback="onSubmit"
+                  data-size="invisible">
+            </div>
+            <button type="button" name="button"  class="btn btn-info mx-2" @click="validateRecaptcha">Validate Recaptcha</button>
+            <button type="submit" class="btn btn-success  mx-2" name="button" disabled ref="buttonForm">Submit</button>
           </div>
         </form>
       </div>
@@ -34,18 +40,31 @@ export default {
     return {
       username : '',
       password : '',
-      password_confirmation: ''
+      password_confirmation: '',
+      token: '',
     };
   },
   computed: mapGetters(['isAuthenticated']),
   methods : {
     ...mapActions(['authSignUp']),
     register(){
-      this.authSignUp({"email":this.username, "password":this.password, "password_confirmation": this.password_confirmation})
+      this.authSignUp({
+        "email":this.username,
+        "password":this.password,
+        "password_confirmation": this.password_confirmation,
+        "token": this.token
+      })
       .then(res =>{
         if(res=='registered'){
           this.$router.push({name:'login'});
         }
+      });
+    },
+    validateRecaptcha(){
+      window.grecaptcha.execute().then((token)=>{
+        this.token = token;
+        $(this.$refs.buttonForm).prop('disabled', false);
+        this.$swal.fire('Recaptcha', 'Recaptcha was validated', 'success');
       });
     }
   },
@@ -53,6 +72,11 @@ export default {
     if(this.isLogged){
       this.$router.push({name:'home'});
     }
+  },
+  mounted(){
+    window.grecaptcha.ready(() => {
+    window.grecaptcha.render({sitekey:'6LcxyKkUAAAAAH67c2dmQDkHsE35tI-jeWWfcOJG'});
+  });
   }
 }
 </script>

@@ -39,6 +39,7 @@ const actions = {
     }
   },
   async authSignUp({commit}, credentials){
+
     try {
       const response = await axios.post(process.env.VUE_APP_BE+'/api/auth/signup', credentials);
       if(response.data.registered){
@@ -64,6 +65,7 @@ const actions = {
       );
       return "error";
     }
+    
   },
   async authLogOut({commit, getters}){
      var headers = { headers: {"Authorization" : `Bearer ${getters.getToken}`} }
