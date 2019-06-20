@@ -103,6 +103,11 @@ export default new Router({
       name: 'register',
       component: () => import(/* webpackChunkName: "about" */ './components/web/Register.vue')
     },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import(/* webpackChunkName: "about" */ './components/web/Profile.vue')
+    },
     /*
     {
       path: '/about',

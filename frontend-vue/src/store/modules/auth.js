@@ -6,14 +6,30 @@ const state = {
   s_token :'',
   token: helpers.getCookie('user-token') || '',
   session:{},
+  s_user:{}
 };
 
 const getters =  {
   isAuthenticated: state => !!state.token || (!!state.session && !!state.session.token) || false,
   getToken:state => state.s_token,
+  user: state => state.s_user,
 };
 
 const actions = {
+  async fetchUser({commit, getters}){
+    try {
+      var headers = { headers: {"Authorization" : `Bearer ${getters.getToken}`} }
+      const response = await axios.get(process.env.VUE_APP_BE+'/api/auth/user', headers);
+      if(response.data.errors) {
+        commit('setErrors', response.data.errors);
+        throw new Error("error trying to get user");
+      }
+      commit('setUser', response.data);
+    } catch (e) {
+      console.log(e.message);
+      return "error";
+    }
+  },
   async authRequest({commit}, credentials){
     try {
 
@@ -110,6 +126,7 @@ const mutations = {
     state.session = {};
   },
   setToken:(state, token) =>state.s_token = token,
+  setUser:(state,user) => state.s_user = user,
 };
 
 export default {

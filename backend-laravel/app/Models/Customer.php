@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
@@ -28,4 +29,7 @@ class Customer extends Model
       'fax' => '',
       'email' => 'required',
     ];
+    public function user(){
+      return $this->belongsTo(User::class);
+    }
 }

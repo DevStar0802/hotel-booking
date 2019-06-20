@@ -36,6 +36,9 @@
       </router-link>
     </ul>
     <ul class="navbar-nav ml-auto" v-if="getToken">
+      <router-link tag="li" :to="{name: 'profile'}" class="nav-item">
+        <a class="nav-link">Profile</a>
+      </router-link>
       <li class="nav-item">
         <a href="#" class="nav-link" @click="authLogOut">Logout</a>
       </li>

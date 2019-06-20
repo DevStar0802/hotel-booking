@@ -47,7 +47,7 @@ export default {
       token: '',
     };
   },
-  computed: mapGetters(['isAuthenticated', 'errors']),
+  computed: mapGetters(['isAuthenticated', 'errors', 'getToken']),
   methods : {
     ...mapActions(['authSignUp']),
     register(){
@@ -73,9 +73,10 @@ export default {
     }
   },
   created(){
-    if(this.isLogged){
+    if(this.getToken){
       this.$router.push({name:'home'});
     }
+
   },
   mounted(){
     window.grecaptcha.ready(() => {

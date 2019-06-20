@@ -31,7 +31,15 @@ class CustomerController extends Controller
         if ($validator->fails()) {
             return response()->json(["errors" => $validator->messages()], 200);
         }
-        return Customer::create($request->all());
+        $customer = Customer::create($request->all());
+
+        if($request->user_id && $request->user_id>0){
+          $user = $customer->user;
+          $user->customer_id = $customer->id;
+          $user->save();
+        }
+
+        return $customer;
     }
 
     /**

@@ -128,7 +128,14 @@ class AuthController extends Controller
    */
   public function user(Request $request)
   {
-      return response()->json($request->user());
+      $user =  $request->user();
+      $customer = $user->customer;
+      if($customer){
+        unset($customer->id);
+        unset($user->customer);
+        return response()->json(array_merge($user->toArray(), $customer->toArray()));
+      }
+      else return response()->json($user);
   }
 
 }
