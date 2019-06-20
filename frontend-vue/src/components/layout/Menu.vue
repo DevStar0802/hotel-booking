@@ -27,12 +27,33 @@
         </div>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto" v-if="!getToken">
+      <router-link tag="li" :to="{name: 'login'}" class="nav-item">
+        <a class="nav-link">Login</a>
+      </router-link>
+      <router-link tag="li" :to="{name: 'register'}" class="nav-item">
+        <a class="nav-link">Register</a>
+      </router-link>
+    </ul>
+    <ul class="navbar-nav ml-auto" v-if="getToken">
+      <li class="nav-item">
+        <a href="#" class="nav-link" @click="authLogOut">Logout</a>
+      </li>
+    </ul>
   </div>
 </nav>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex';
 export default {
+  computed: mapGetters(['getToken']),
+  methods:{
+    ...mapActions(['authLogOut', 'updateAuthStatus']),
+  },
+  created(){
+    this.updateAuthStatus();
+  }
 }
 </script>
 

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import hotel from './modules/hotel';
+import auth from './modules/auth';
 import room from './modules/room';
 import price from './modules/price';
 import booking from './modules/booking';
@@ -12,6 +13,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    hotel, roomType, roomCapacity, room, price, booking, customer
+    hotel, roomType, roomCapacity, room, price, booking, customer, auth
   }
 })

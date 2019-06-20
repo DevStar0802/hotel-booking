@@ -93,6 +93,16 @@ export default new Router({
       name: 'reservation-page',
       component: () => import(/* webpackChunkName: "about" */ './components/web/ReservationPage.vue')
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "about" */ './components/web/Login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import(/* webpackChunkName: "about" */ './components/web/Register.vue')
+    },
     /*
     {
       path: '/about',
