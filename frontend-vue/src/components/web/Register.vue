@@ -7,22 +7,25 @@
           <div class="col-sm-12 form-group">
             <label>Email</label>
             <input required v-model="username" class="form-control" type="text" placeholder="email@example.com"/>
+            <span class="small text-danger" v-for="error in errors.email" v-if="errors.email">{{error}}</span>
           </div>
           <div class="col-sm-12 form-group">
             <label>Password</label>
             <input required v-model="password" class="form-control" type="password" placeholder="Password"/>
+            <span class="small text-danger" v-for="error in errors.password" v-if="errors.password">{{error}}</span>
           </div>
           <div class="col-sm-12 form-group">
             <label>Password Confirm</label>
             <input id="password-confirm" type="password"  v-model="password_confirmation" name="password_confirmation" required="required" autocomplete="new-password" class="form-control">
+            <span class="small text-danger" v-for="error in errors.password_confirmation" v-if="errors.password_confirmation">{{error}}</span>
           </div>
           <div class="col-sm-12">
             <div class="g-recaptcha"
                   data-sitekey="6LcxyKkUAAAAAH67c2dmQDkHsE35tI-jeWWfcOJG"
-                  data-callback="onSubmit"
                   data-size="invisible">
             </div>
-            <button type="button" name="button"  class="btn btn-info mx-2" @click="validateRecaptcha">Validate Recaptcha</button>
+            <span class="small text-danger" v-for="error in errors.recaptcha" v-if="errors.recaptcha">{{error}}</span>
+            <button type="button" name="button"  class="btn btn-info mx-2" @click="validateRecaptcha" ref="buttonRecaptcha">Validate Recaptcha</button>
             <button type="submit" class="btn btn-success  mx-2" name="button" disabled ref="buttonForm">Submit</button>
           </div>
         </form>
@@ -44,7 +47,7 @@ export default {
       token: '',
     };
   },
-  computed: mapGetters(['isAuthenticated']),
+  computed: mapGetters(['isAuthenticated', 'errors']),
   methods : {
     ...mapActions(['authSignUp']),
     register(){
@@ -64,6 +67,7 @@ export default {
       window.grecaptcha.execute().then((token)=>{
         this.token = token;
         $(this.$refs.buttonForm).prop('disabled', false);
+        $(this.$refs.buttonRecaptcha).prop('disabled', true);
         this.$swal.fire('Recaptcha', 'Recaptcha was validated', 'success');
       });
     }

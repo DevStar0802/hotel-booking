@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\Helpers\Recaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -25,13 +26,14 @@ class AuthController extends Controller
         //'name' => 'required|string',
         'email' => 'required|string|email|unique:users',
         'password' => 'required|string|confirmed',
-        //'token' => 'required'
+        'token' => 'required'
       ]);
       if ($validator->fails()) {
           return response()->json(["errors" => $validator->messages()], 200);
       }
 
-      //if(!Recaptcha::validate($request->token)) return response()->json(["errors" => ["recaptcha" => "error con recaptcha"]], 200);
+
+      if(!Recaptcha::validate($request->token)) return response()->json(["errors" => ["recaptcha" => "error con recaptcha"]], 200);
 
       try {
         $user = new User([
@@ -64,13 +66,13 @@ class AuthController extends Controller
         //'name' => 'required|string',
         'email' => 'required|string|email',
         'password' => 'required|string',
-        //'token' => 'required'
+        'token' => 'required'
       ]);
       if ($validator->fails()) {
           return response()->json(["errors" => $validator->messages()], 200);
       }
       //validate recaptcha
-      //if(!Recaptcha::validate($request->token)) return response()->json(["errors" => ["recaptcha" => "error con recaptcha"]], 200);
+      if(!Recaptcha::validate($request->token)) return response()->json(["errors" => ["recaptcha" => "error con recaptcha"]], 200);
 
       try {
         $credentials = request(['email', 'password']);

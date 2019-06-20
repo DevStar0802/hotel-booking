@@ -16,8 +16,9 @@ const getters =  {
 const actions = {
   async authRequest({commit}, credentials){
     try {
+
       const response = await axios.post(process.env.VUE_APP_BE+'/api/auth/login', credentials);
-      //console.log(response);
+
       if(response.data.logged){
           commit('sessionAccepted', response.data.logged);
           commit('setToken', response.data.logged.access_token);
@@ -41,11 +42,13 @@ const actions = {
   async authSignUp({commit}, credentials){
 
     try {
+
       const response = await axios.post(process.env.VUE_APP_BE+'/api/auth/signup', credentials);
+
       if(response.data.registered){
           Swal.fire(
             'Good job!',
-            'Price updated!',
+            'Account Created!',
             'success'
           );
           commit('setErrors', []);
@@ -57,7 +60,7 @@ const actions = {
       }
       return "registered";
     } catch (e) {
-      //console.log(e);
+
       Swal.fire(
         'Error!',
         e.message,
@@ -65,17 +68,17 @@ const actions = {
       );
       return "error";
     }
-    
+
   },
   async authLogOut({commit, getters}){
      var headers = { headers: {"Authorization" : `Bearer ${getters.getToken}`} }
     try {
       const response = await axios.get(process.env.VUE_APP_BE+'/api/auth/logout', headers);
-      //console.log(response);
+
       if(response.data.great){
           commit('cleanSession', response.data);
           commit('setToken', '');
-          //console.log(getters.getToken);
+
       } else {
         throw new Error("something wrong")
       }
@@ -97,7 +100,7 @@ const actions = {
 const mutations = {
   sessionAccepted: (state, session) => {
     if(session.access_token){
-      //console.log(session);
+
       state.session = session;
       helpers.setCookie('user-token', session.access_token, 7);
     }
