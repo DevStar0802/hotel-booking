@@ -25,6 +25,9 @@ class Room extends Model
     public function capacity(){
       return $this->belongsTo(RoomCapacity::class, 'room_capacity_id');
     }
+    public function price(){
+      return "550";
+    }
 
     /*scopes*/
     public function scopeRoomType($query, $scope){

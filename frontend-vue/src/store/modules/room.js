@@ -13,8 +13,7 @@ const getters =  {
 
 const actions = {
   async fetchRooms({commit}, params){
-    const response = await axios.get(process.env.VUE_APP_BE+'/api/rooms', params);
-    //console.log(response);
+    const response = await axios.get(process.env.VUE_APP_BE+'/api/rooms', {params});
     commit('setRooms', response.data);
   },
   async showRoom({commit}, id){

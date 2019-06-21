@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\Models\Price;
 use App\Helpers\Img;
 use App\Models\Room;
 use Illuminate\Http\Request;

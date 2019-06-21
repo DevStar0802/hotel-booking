@@ -43,6 +43,7 @@ const actions = {
         commit('setErrors', response.data.errors);
         throw new Error("some errors in form");
       } else {
+        //console.log(response);
         throw new Error("something wrong")
       }
       return "logged";

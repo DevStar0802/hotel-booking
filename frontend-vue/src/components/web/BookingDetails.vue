@@ -8,6 +8,7 @@
       <span v-if="bookingForm.room && bookingForm.room.name"><b>Room Name:</b> {{bookingForm.room.name}}&nbsp;</span>
       <span v-if="bookingForm.room && bookingForm.room.type.name"><b>Room Type:</b> {{bookingForm.room.type.name}}&nbsp;</span>
       <span v-if="bookingForm.room && bookingForm.room.capacity.name"><b>Room Capacity:</b> {{bookingForm.room.capacity.name}}&nbsp;</span>
+      <span v-if="bookingForm.room && bookingForm.room.total_price"><b>Total Price:</b> {{bookingForm.room.total_price}}&nbsp;</span>
 
 
 

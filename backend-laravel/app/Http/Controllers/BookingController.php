@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\User;
+use App\Models\Customer;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 
@@ -16,6 +18,46 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         return Booking::filtered($request->all())->get();
+    }
+
+    public function addBooking(Request $request){
+      $validator = Validator::make($request->all(), Booking::VALIDATOR_OPTIONS_BOOKING);
+      if ($validator->fails()) {
+          return response()->json(["errors" => $validator->messages()], 200);
+      }
+
+      try {
+
+        $user = User::find($request->customer['id']);
+
+        if(!empty($request->customer['customer_id'])){
+            $customer = Customer::find($request->customer['customer_id']);
+            $customer->fill($request->customer);
+            $customer->save();
+        } else {
+            $customer = new Customer();
+            $data = $request->customer;
+            unset($data['id']);
+            $customer->fill($request->customer);
+            //return $customer;
+            $customer->save();
+            $user->customer_id = $customer->id;
+            $user->save();
+        }
+
+        $booking = Booking::create([
+          'room_id'=> $request->room['id'],
+          'start_date' => $request->start_date,
+          'end_date' => $request->end_date,
+          'customer_id' => $customer->id,
+        ]);
+
+        return ['response' => "booking added succesfully"];
+
+      } catch (\Exception $e) {
+          return response()->json(["errors" => ["save_error" => $e->getMessage()]], 200);
+      }
+
     }
 
 

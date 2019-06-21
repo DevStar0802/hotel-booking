@@ -13,7 +13,7 @@
             <thead>
               <tr>
                 <td>#</td>
-                <td>Name</td>
+                <td>Name </td>
                 <td>Price</td>
                 <td>Actions</td>
               </tr>
@@ -21,7 +21,7 @@
             <tbody>
               <tr v-for="price in prices" :key="price.id">
                 <td>{{price.id}}</td>
-                <td>{{price.name}}</td>
+                <td>{{price.name}} <span class="badge badge-secondary" v-if="price.dynamic">Dynamic</span></td>
                 <td>${{new Intl.NumberFormat("en-US").format(price.price)}}</td>
                 <td>
                   <router-link :to="{name: 'prices-edit', params:{id:price.id}}" class="btn btn-info mx-2">Edit</router-link>

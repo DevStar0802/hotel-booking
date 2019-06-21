@@ -23,6 +23,35 @@ const actions = {
     const response = await axios.get(process.env.VUE_APP_BE+`/api/bookings/${id}`);
     commit('setBooking', response.data);
   },
+  async addBooking({commit}, booking){
+    try {
+      //console.log(booking.start_date);
+      booking.start_date = helpers.formatDate(booking.start_date);
+      booking.end_date = helpers.formatDate(booking.end_date);
+
+console.log(booking);
+      const response = await axios.post(process.env.VUE_APP_BE+'/api/add-booking', booking);
+      console.log(response);
+      if(response.data.errors){
+        commit('setErrors', response.data.errors);
+        throw new Error("some errors in form");
+      }
+      commit('setErrors', []);
+      Swal.fire(
+        'Good job!',
+        'Booking created!',
+        'success'
+      );
+    } catch (e) {
+      //console.log(e);
+      Swal.fire(
+        'Error!',
+        e.message,
+        'error'
+      );
+      return "error";
+    }
+  },
   async AddOrUpdateBooking({commit}, booking){
     try {
       if(booking.id && booking.id>0){

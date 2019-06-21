@@ -19,6 +19,17 @@ class Booking extends Model
       'customer_id' => 'required|integer|min:1',
     ];
 
+    const VALIDATOR_OPTIONS_BOOKING = [
+      'room.id' => 'required|integer|min:1',
+      'start_date' => 'required|date',
+      'end_date' => 'required|date',
+      'customer.id' => 'required',
+      'customer.first_name' => 'required',
+      'customer.last_name' => 'required',
+      'customer.phone' => 'required',
+      'customer.email' => 'required',
+    ];
+
 
     //scopes "filters"
     public function scopeYear($query, $scope){

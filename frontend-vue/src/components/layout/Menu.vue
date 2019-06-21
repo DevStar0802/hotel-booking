@@ -36,11 +36,12 @@
       </router-link>
     </ul>
     <ul class="navbar-nav ml-auto" v-if="getToken">
-      <router-link tag="li" :to="{name: 'profile'}" class="nav-item">
-        <a class="nav-link">Profile</a>
-      </router-link>
+      <li tag="li" class="nav-item cursor-pointer">
+        <a class="nav-link" @click="goLink($event,'profile')">Profile</a>
+      </li>
+
       <li class="nav-item">
-        <a href="#" class="nav-link" @click="authLogOut">Logout</a>
+        <a href="#" class="nav-link" @click="logout">Logout</a>
       </li>
     </ul>
   </div>
@@ -53,6 +54,15 @@ export default {
   computed: mapGetters(['getToken']),
   methods:{
     ...mapActions(['authLogOut', 'updateAuthStatus']),
+    goLink(e, link){
+      e.preventDefault();
+      this.$router.push({name:link});
+    },
+    logout(){
+      this.authLogOut().then(res =>{
+        if(res != 'error') this.$router.push({name:'home'});
+      });
+    }
   },
   created(){
     this.updateAuthStatus();
@@ -61,4 +71,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.cursor-pointer{
+  cursor: pointer;
+}
 </style>

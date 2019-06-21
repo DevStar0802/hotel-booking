@@ -18,6 +18,12 @@ class PriceController extends Controller
         return Price::all();
     }
 
+    public function pricesFiltered(Request $request){
+      $prices = Price::filtered($request->all())
+      ->orderBy('day', 'desc')->orderBy('start_date', 'desc')->first();
+      return $prices;
+    }
+
 
     /**
      * Store a newly created resource in storage.

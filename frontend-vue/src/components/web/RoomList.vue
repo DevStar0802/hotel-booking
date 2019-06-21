@@ -14,8 +14,9 @@
             <b>Room Name:</b> {{room.name}}&nbsp;
             <b>Room Type:</b> {{room.type.name}}<br>
             <b>Room Capacity:</b> {{room.capacity.name}}&nbsp;
-            <b>Total Price:</b>
+            <b>Total Price: {{room.total_price}}</b>
           </div>
+          <days-prices :room="room" v-for="day in days" :day="day" :key="day"/>
         </div>
       </div>
 
@@ -25,12 +26,14 @@
 </template>
 
 <script>
+import {formatDate}  from '@/helpers.js'
 import {mapGetters, mapActions, mapMutations} from 'vuex';
 
 export default {
   data(){
     return {
         backend_endpoint: process.env.VUE_APP_BE,
+        days:[]
     }
   },
   methods:{
@@ -47,10 +50,21 @@ export default {
     if(!this.bookingForm || !this.bookingForm.start_date || !this.bookingForm.end_date){
       this.$router.push({name: 'home'});
     } else {
-      var params = {};
+      var params = {withPrices:true};
       if(this.bookingForm && this.bookingForm.room_type_id) params.room_type_id = this.bookingForm.room_type_id;
       this.fetchRooms(params);
     }
+
+    var currentDate = new Date(this.bookingForm.start_date);
+    do {
+      this.days.push(formatDate(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    } while (currentDate< this.bookingForm.end_date);
+
+    this.$on('updateTotalPrice', ()=>{
+      this.rooms.push(1);
+      this.rooms.pop();
+    });
   }
 }
 </script>

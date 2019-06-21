@@ -24,6 +24,7 @@ Vue.component('hotel-details', require('./components/admin/hotel/Hotel.vue').def
 
 Vue.component('booking-form', require('./components/web/BookingForm.vue').default);
 Vue.component('booking-details', require('./components/web/BookingDetails.vue').default);
+Vue.component('days-prices', require('./components/web/DaysPrices.vue').default);
 
 new Vue({
   router,
