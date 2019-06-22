@@ -27,3 +27,5 @@ when you backend is running open another console and go to frontend-vue folder a
 ```bash
 npm run serve
 ```
+
+you are now able to run the project at http://localhost:8080

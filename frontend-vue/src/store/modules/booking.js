@@ -15,8 +15,8 @@ const getters =  {
 };
 
 const actions = {
-  async fetchBookings({commit}){
-    const response = await axios.get(process.env.VUE_APP_BE+'/api/bookings');
+  async fetchBookings({commit}, params){
+    const response = await axios.get(process.env.VUE_APP_BE+'/api/bookings', {params});
     commit('setBookings', response.data);
   },
   async showBooking({commit}, id){
@@ -29,9 +29,9 @@ const actions = {
       booking.start_date = helpers.formatDate(booking.start_date);
       booking.end_date = helpers.formatDate(booking.end_date);
 
-console.log(booking);
+//console.log(booking);
       const response = await axios.post(process.env.VUE_APP_BE+'/api/add-booking', booking);
-      console.log(response);
+      //console.log(response);
       if(response.data.errors){
         commit('setErrors', response.data.errors);
         throw new Error("some errors in form");

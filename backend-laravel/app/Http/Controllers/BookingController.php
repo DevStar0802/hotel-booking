@@ -40,6 +40,7 @@ class BookingController extends Controller
             unset($data['id']);
             $customer->fill($request->customer);
             //return $customer;
+            $customer->user_id = $user->id;
             $customer->save();
             $user->customer_id = $customer->id;
             $user->save();

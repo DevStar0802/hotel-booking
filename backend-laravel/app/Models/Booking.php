@@ -34,14 +34,25 @@ class Booking extends Model
     //scopes "filters"
     public function scopeYear($query, $scope){
       if (!empty($scope)) {
-        $query->whereYear('start_date', '=',  $scope)->
-        whereYear('end_date', '=', $scope, 'or');
+        $query->where(function($query)use($scope){
+          $query->whereYear('start_date', '=',  $scope)->
+          whereYear('end_date', '=', $scope, 'or');
+        });
+        
       }
     }
     public function scopeMonth($query, $scope){
       if (!empty($scope)) {
-        $query->whereMonth('start_date', '=',  $scope)->
-        whereMonth('end_date', '=', $scope, 'or');
+        $query->where(function($query)use($scope){
+          $query->whereMonth('start_date', '=',  $scope)->
+                  whereMonth('end_date', '=', $scope, 'or');
+        });
+      }
+    }
+    public function scopeDate($query, $scope){
+      if (!empty($scope)) {
+        $query->where('start_date', '<=', $scope);
+        $query->where('end_date', '>=', $scope);
       }
     }
     public function scopeStartDate($query, $scope){
@@ -68,6 +79,7 @@ class Booking extends Model
     public static function filtered($datos){
       return self::startDate(isset($datos['start_date'])?$datos['start_date']:null)
       ->endDate(isset($datos['end_date'])?$datos['end_date']:null)
+      ->date(isset($datos['date'])?$datos['date']:null)
       ->customerId(isset($datos['customer_id'])?$datos['customer_id']:null)
       ->roomId(isset($datos['room_id'])?$datos['room_id']:null)
       ->month(isset($datos['month'])?$datos['month']:null)
