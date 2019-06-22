@@ -2,7 +2,7 @@
 
 https://app.codeline.io/#/projects/1826/tasks/20886
 
-#Backend Installation
+# Backend Installation
 
 after cloning the project you should go inside the folder /backend-laravel then you can make the following steps
 
@@ -25,6 +25,7 @@ php artisan passport:install
 when you backend is running open another console and go to frontend-vue folder and run.
 
 ```bash
+npm install
 npm run serve
 ```
 
