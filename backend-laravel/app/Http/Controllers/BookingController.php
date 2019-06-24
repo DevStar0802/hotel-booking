@@ -28,7 +28,15 @@ class BookingController extends Controller
 
       try {
 
-        $user = User::find($request->customer['id']);
+        if($request->customer['id'] == 0){
+          $user = User::create([
+            'name' => 'new User',
+            'email' => $request->customer['email'],
+            'password' => bcrypt('password'), // password
+          ]);
+        } else{
+            $user = User::find($request->customer['id']);
+        }
 
         if(!empty($request->customer['customer_id'])){
             $customer = Customer::find($request->customer['customer_id']);
